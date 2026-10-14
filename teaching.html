@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teaching | Eleni Kalamara</title>
+<meta name="description" content="Judgment First: Eleni Kalamara's approach to teaching university economics in the AI era.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='28' y='10' width='28' height='12' rx='4' fill='%231d7366'/%3E%3Crect x='18' y='26' width='38' height='12' rx='4' fill='%239a5414'/%3E%3Crect x='8' y='42' width='48' height='12' rx='4' fill='%231f3a5f'/%3E%3C/svg%3E">
+<style>
+:root{
+  --paper:#f7f5f0;--surface:#ffffff;--ink:#1c1f24;--ink-muted:#585d64;--rule:#d9d5cc;
+  --closed:#1f3a5f;--closed-soft:#dfe7f1;--logged:#9a5414;--logged-soft:#f5e6d6;--open:#1d7366;--open-soft:#d9efeb;
+  --serif:Charter,"Iowan Old Style","Source Serif Pro",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root{--paper:#17191c;--surface:#202328;--ink:#eceae4;--ink-muted:#a7abb2;--rule:#3a3e46;
+    --closed:#8fb0d9;--closed-soft:#1e2a3a;--logged:#e0a060;--logged-soft:#3a2a1c;--open:#5cc4b3;--open-soft:#17302c;}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--sans)}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+@media (min-width:720px){.wrap{padding:0 32px}}
+a{color:var(--open)}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2;margin:0}
+h2{font-size:clamp(24px,4vw,32px);margin-bottom:12px}
+h3{font-size:20px}
+p{margin:0 0 12px}
+.muted{color:var(--ink-muted)}
+section{padding:48px 0;border-top:1px solid var(--rule)}
+.icon{width:24px;height:24px;flex:none}
+/* header */
+header{padding:24px 0 8px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--serif);font-size:20px;font-weight:600}
+.brand svg{width:36px;height:36px}
+/* hero */
+.hero{padding:40px 0 56px;display:grid;gap:32px;align-items:center}
+@media (min-width:760px){.hero{grid-template-columns:1.4fr 1fr}}
+.hero h1{font-size:clamp(36px,7vw,60px);line-height:1.02;letter-spacing:-.01em;margin-bottom:16px}
+.lede{font-size:18px;line-height:1.55;max-width:34em}
+.stack{display:grid;gap:8px;justify-items:end}
+.stack div{height:44px;border-radius:12px;display:flex;align-items:center;padding:0 16px;color:var(--paper);font-weight:600;font-size:14px;letter-spacing:.03em}
+.stack .s-open{width:58%;background:var(--open)}
+.stack .s-logged{width:79%;background:var(--logged)}
+.stack .s-closed{width:100%;background:var(--closed)}
+/* scarce list */
+.scarce{display:grid;gap:12px;margin-top:20px;padding:0;list-style:none}
+@media (min-width:720px){.scarce{grid-template-columns:repeat(2,1fr)}}
+.scarce li{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:12px 16px}
+.scarce b{display:block;font-family:var(--serif);font-size:17px}
+/* lanes */
+.lanes{display:grid;gap:16px;margin-top:24px}
+@media (min-width:760px){.lanes{grid-template-columns:repeat(3,1fr)}}
+.lane{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:20px;border-top-width:6px}
+.lane.closed{border-top-color:var(--closed)}.lane.logged{border-top-color:var(--logged)}.lane.open{border-top-color:var(--open)}
+.lane-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.chip{display:inline-block;font-size:12px;line-height:16px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:4px 8px;border-radius:4px}
+.chip.closed{background:var(--closed-soft);color:var(--closed)}
+.chip.logged{background:var(--logged-soft);color:var(--logged)}
+.chip.open{background:var(--open-soft);color:var(--open)}
+.closed .icon{color:var(--closed)}.logged .icon{color:var(--logged)}.open .icon{color:var(--open)}
+.lane h3{margin:4px 0 8px}
+.lane p{font-size:15px}
+.lane .eg{font-size:14px;color:var(--ink-muted);margin:0}
+.weights{display:flex;height:12px;border-radius:6px;overflow:hidden;margin:24px 0 8px}
+.weights span:nth-child(1){flex:30;background:var(--closed)}
+.weights span:nth-child(2){flex:25;background:var(--logged)}
+.weights span:nth-child(3){flex:45;background:var(--open)}
+/* principles */
+.principles{counter-reset:p;display:grid;gap:16px 32px;padding:0;list-style:none;margin-top:20px}
+@media (min-width:720px){.principles{grid-template-columns:repeat(2,1fr)}}
+.principles li{counter-increment:p;padding-left:40px;position:relative}
+.principles li::before{content:counter(p);position:absolute;left:0;top:0;font-family:var(--serif);font-size:24px;font-weight:600;color:var(--ink-muted);line-height:1.1}
+.principles b{display:block}
+/* patterns */
+.patterns{display:grid;gap:16px;margin-top:24px}
+@media (min-width:600px){.patterns{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:900px){.patterns{grid-template-columns:repeat(3,1fr)}}
+.pat{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.pat-top{display:flex;justify-content:space-between;align-items:center}
+.pat .icon{color:var(--ink);width:28px;height:28px}
+.pat h3{font-size:18px}
+.pat p{font-size:14px;line-height:1.5;margin:0}
+.pat .eg{color:var(--ink-muted);font-size:13px}
+/* course table */
+.table-wrap{overflow-x:auto;margin-top:20px;border:1px solid var(--rule);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:600;background:var(--paper)}
+tr:last-child td{border-bottom:0}
+td:first-child{color:var(--ink-muted);white-space:nowrap}
+/* statement */
+blockquote{margin:20px 0 0;padding:24px;background:var(--surface);border:1px solid var(--rule);border-radius:8px;font-family:var(--serif);font-size:18px;line-height:1.6}
+footer{padding:32px 0 48px;border-top:1px solid var(--rule);font-size:14px;color:var(--ink-muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="28" y="10" width="28" height="12" rx="4" fill="var(--open)"/><rect x="18" y="26" width="38" height="12" rx="4" fill="var(--logged)"/><rect x="8" y="42" width="48" height="12" rx="4" fill="var(--closed)"/></svg>
+    Judgment First
+  </div>
+</header>
+
+<div class="hero">
+  <div>
+    <p class="muted" style="font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:13px">Teaching · Eleni Kalamara</p>
+    <h1>Teaching economics in the AI era</h1>
+    <p class="lede">AI has made producing a competent answer almost free. So I teach, and assess, what stays scarce: framing the right question, judging the evidence, knowing when a model is wrong, and defending a decision.</p>
+  </div>
+  <div class="stack" aria-label="The learning stack: foundations, practice, judgment">
+    <div class="s-open">JUDGMENT</div>
+    <div class="s-logged">PRACTICE</div>
+    <div class="s-closed">FOUNDATIONS</div>
+  </div>
+</div>
+
+<section>
+  <h2>The premise</h2>
+  <p>In economic terms, generative AI pushes the marginal cost of producing a problem set solution, a literature summary, a regression script or an essay close to zero. Once something is cheap, it stops being a credible signal of learning. My courses shift student time toward what remains scarce, while protecting the foundations it all rests on.</p>
+  <ul class="scarce">
+    <li><b>Asking the right question</b><span class="muted">Framing, the counterfactual, what would change your mind.</span></li>
+    <li><b>Judging evidence</b><span class="muted">Identification, measurement, data provenance, plausibility.</span></li>
+    <li><b>Knowing when an AI is wrong</b><span class="muted">The bad assumption, the leaked future data, the invented citation.</span></li>
+    <li><b>Deciding and defending</b><span class="muted">Making a call under uncertainty and standing behind it.</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Three lanes</h2>
+  <p>Every task in my syllabi carries one label, so students always know the rule. The lane decides how AI may be used, not how hard the task is.</p>
+  <div class="lanes">
+    <div class="lane closed">
+      <div class="lane-head"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg><span class="chip closed">Closed</span></div>
+      <h3>Foundations, without AI</h3>
+      <p>In the room, on paper or out loud. Students build the fluency they need to audit anything else.</p>
+      <p class="eg">Short in-class derivations, sampled oral checks, in-person exams.</p>
+    </div>
+    <div class="lane logged">
+      <div class="lane-head"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg><span class="chip logged">Logged</span></div>
+      <h3>Practice, with AI on the record</h3>
+      <p>AI is allowed. Students submit what they asked, what they accepted or rejected, and how they checked it.</p>
+      <p class="eg">Problem sets, coding labs, study sessions with a course tutor.</p>
+    </div>
+    <div class="lane open">
+      <div class="lane-head"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg><span class="chip open">Open</span></div>
+      <h3>Judgment, over AI</h3>
+      <p>AI use is expected. The task is to direct it, find its errors, and defend the result in person.</p>
+      <p class="eg">Error hunts, replications, policy briefs with a live defense.</p>
+    </div>
+  </div>
+  <div class="weights" role="img" aria-label="Typical course weighting: 30% closed, 25% logged, 45% open"><span></span><span></span><span></span></div>
+  <p class="muted" style="font-size:14px">Typical course weighting: 30% Closed · 25% Logged · 45% Open. First-year courses lean Closed; MSc courses lean Open.</p>
+</section>
+
+<section>
+  <h2>Principles</h2>
+  <ol class="principles">
+    <li><b>Protect the foundations.</b>You cannot audit what you do not understand.</li>
+    <li><b>Assess the process, not only the product.</b>Reasoning and verification are what get graded.</li>
+    <li><b>AI is a sparring partner, not an oracle.</b>Every output is a claim to be checked.</li>
+    <li><b>Make thinking visible out loud.</b>Short, randomly sampled oral checks scale.</li>
+    <li><b>Reward calibration.</b>Students state probabilities and are scored on them.</li>
+    <li><b>Teach AI as an economic object.</b>Labor markets, productivity, and the measurement pitfalls of LLM-based research.</li>
+    <li><b>Equal access by design.</b>The university provides the tools; grades never depend on a paid subscription.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Module patterns</h2>
+  <p>Nine reusable building blocks I combine into any economics course.</p>
+  <div class="patterns">
+    <div class="pat"><div class="pat-top"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M10 9.5a2 2 0 1 1 2.8 1.8c-.5.3-.8.7-.8 1.2"/><path d="M12 14.6v.01"/></svg><span class="chip closed">Closed</span></div><h3>Oral Check</h3><p>A sampled ten-minute viva on a student's own work: explain, perturb, extend.</p><p class="eg">The most AI-proof check there is.</p></div>
+    <div class="pat"><div class="pat-top"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="M14 7l3 3"/><path d="M13 20h7"/></svg><span class="chip closed">Closed</span></div><h3>Cold Derivation</h3><p>A short handwritten derivation at the start of class. Frequent, low stakes.</p><p class="eg">e.g. the sign of omitted-variable bias.</p></div>
+    <div class="pat"><div class="pat-top"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h11v8H8l-3 3v-3H3z"/><path d="M14 9h7v8h-2v3l-3-3h-6v-2"/></svg><span class="chip logged">Logged</span></div><h3>Tutor Log</h3><p>Study with a course tutor grounded in the notes, set to ask rather than answer.</p><p class="eg">Logs reveal the week's misconceptions.</p></div>
+    <div class="pat"><div class="pat-top"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M10 5l3 3-3 3"/><path d="M21 16H11M14 13l-3 3 3 3"/></svg><span class="chip open">Open</span></div><h3>AI Duel</h3><p>Grade an AI's answer to an economics question, then write a better one.</p><p class="eg">e.g. minimum wage and monopsony.</p></div>
+    <div class="pat"><div class="pat-top"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/><path d="M8.5 8.5l4 4M12.5 8.5l-4 4"/></svg><span class="chip open">Open</span></div><h3>Error Hunt</h3><p>Audit an AI-written empirical paper with deliberately planted flaws.</p><p class="eg">Bad controls, wrong clustering, invented citations.</p></div>
+    <div class="pat"><div class="pat-top"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16"/><path d="M7 15l3-4 3 2"/><path d="M13 13l4-5" stroke-dasharray="2 2.5"/><circle cx="18" cy="7" r="1.5"/></svg><span class="chip open">Open</span></div><h3>Prediction Ledger</h3><p>Probabilistic forecasts on real data releases, scored against human and LLM baselines.</p><p class="eg">Brier scores reward honest calibration.</p></div>
+    <div class="pat"><div class="pat-top"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.3-4.9"/><path d="M4 3v4h4"/><path d="M4 13a8 8 0 0 0 14.3 4.9"/><path d="M20 21v-4h-4"/></svg><span class="chip logged">Logged</span></div><h3>Replication Sprint</h3><p>Replicate a published result with an AI pair-programmer and document every check.</p><p class="eg">Graded on the verification memo.</p></div>
+    <div class="pat"><div class="pat-top"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><span class="chip open">Open</span></div><h3>Brief Defense</h3><p>A two-page policy brief, AI allowed, defended under live cross-examination.</p><p class="eg">Students own every sentence.</p></div>
+    <div class="pat"><div class="pat-top"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="2.5"/><circle cx="18" cy="7" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8.5 7h7M7.3 9.2l3.4 6.6M16.7 9.2l-3.4 6.6"/></svg><span class="chip open">Open</span></div><h3>Agent Economy</h3><p>LLM agents play markets and games; compare them with theory and lab evidence.</p><p class="eg">When are silicon subjects a valid stand-in?</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Courses</h2>
+  <p>Every course I teach follows the same philosophy: the three lanes, the same principles, and the module patterns adapted to the subject. One worked example:</p>
+  <p><b>Example: Applied Econometrics in the Age of AI.</b> <span class="muted">Undergraduate, 12 weeks.</span> Students learn to derive the core estimators by hand, implement them with an AI pair-programmer, verify the results by simulation, and audit empirical work, including work written by an AI.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Week</th><th>Topic</th><th>Signature activity</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Causal questions and counterfactuals</td><td>AI Duel: "Does the minimum wage reduce employment?"</td></tr>
+      <tr><td>2–3</td><td>OLS, inference, omitted variables</td><td>Error Hunt: a seeded AI-written wage regression</td></tr>
+      <tr><td>4–5</td><td>Instrumental variables, panel data</td><td>Critique an AI's choice of instrument</td></tr>
+      <tr><td>6–7</td><td>Difference-in-differences, event studies</td><td>Replication Sprint: a classic minimum wage study</td></tr>
+      <tr><td>8</td><td>Midterm</td><td>In-person, Closed lane</td></tr>
+      <tr><td>9</td><td>Time series and forecasting</td><td>Prediction Ledger opens on real CPI and labor releases</td></tr>
+      <tr><td>10</td><td>Text as data: LLMs as measurement tools</td><td>Error Hunt: look-ahead bias in an LLM forecast study</td></tr>
+      <tr><td>11</td><td>Prediction vs. causation</td><td>Logged problem set with oral checks</td></tr>
+      <tr><td>12</td><td>Evidence for policy</td><td>Brief Defense before a mock policy committee</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="margin-top:20px"><b>Other courses, same design.</b> The approach carries over to core and field courses across the economics curriculum, from principles and macroeconomics to forecasting and text-as-data electives. Each course keeps a Closed core for the foundations, Logged practice, and Open judgment tasks built from the patterns above.</p>
+</section>
+
+<section>
+  <h2>Teaching statement</h2>
+  <blockquote>My teaching starts from a simple economic observation. When the cost of producing a competent answer falls toward zero, the answer stops being evidence of learning. I therefore design courses around three lanes. In the closed lane, students derive and explain core results without AI. In the logged lane, they use AI for problem sets and coding but document what they asked, what they accepted and how they verified it. In the open lane, AI use is expected, and the task is to direct it, find its errors and defend the result. My research on text-as-data and LLM-based forecasting gives students a concrete reason to treat AI output as a claim to be tested, not a fact.</blockquote>
+</section>
+
+<footer>
+  © Eleni Kalamara · Judgment First teaching framework
+</footer>
+
+</div>
+</body>
+</html>
