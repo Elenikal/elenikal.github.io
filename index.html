@@ -93,6 +93,9 @@ tr:last-child td{border-bottom:0}
 td:first-child{color:var(--ink-muted);white-space:nowrap}
 /* statement */
 blockquote{margin:20px 0 0;padding:24px;background:var(--surface);border:1px solid var(--rule);border-radius:8px;font-family:var(--serif);font-size:18px;line-height:1.6}
+.course-link{display:grid;gap:4px;margin-top:20px;padding:20px;background:var(--surface);border:1px solid var(--rule);border-top:6px solid var(--open);border-radius:8px;color:var(--ink);text-decoration:none}
+.course-link b{font-family:var(--serif);font-size:20px}
+.course-link:hover b{text-decoration:underline}
 footer{padding:32px 0 48px;border-top:1px solid var(--rule);font-size:14px;color:var(--ink-muted)}
 </style>
 </head>
@@ -206,6 +209,11 @@ footer{padding:32px 0 48px;border-top:1px solid var(--rule);font-size:14px;color
     </tbody>
   </table>
   </div>
+  <a class="course-link" href="course-text-ml.html">
+    <span class="muted" style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase">Full course proposal</span>
+    <b>Text as Data and Machine Learning for Finance and Economics</b>
+    <span>A ten-week MSc module built on this approach: machine learning, text as data and large language models, with every task labelled Closed, Logged or Open. See the course &rarr;</span>
+  </a>
   <p style="margin-top:20px"><b>Other courses, same design.</b> The approach carries over to core and field courses across the economics curriculum, from principles and macroeconomics to forecasting and text-as-data electives. Each course keeps a Closed core for the foundations, Logged practice, and Open judgment tasks built from the patterns above.</p>
 </section>
 

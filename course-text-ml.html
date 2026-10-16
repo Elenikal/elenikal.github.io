@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text as Data and Machine Learning</title><meta name="description" content="MSc course proposal by Eleni Kalamara: text as data and machine learning for finance and economics, designed for the age of large language models."><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='28' y='10' width='28' height='12' rx='4' fill='%231d7366'/%3E%3Crect x='18' y='26' width='38' height='12' rx='4' fill='%239a5414'/%3E%3Crect x='8' y='42' width='48' height='12' rx='4' fill='%231f3a5f'/%3E%3C/svg%3E"><style>
+/* Layout: one reading column; weeks as a numbered timeline because the order is the course. */
+:root{
+  --paper:#f7f5f0;--surface:#ffffff;--ink:#1c1f24;--ink-muted:#585d64;--rule:#d9d5cc;
+  --closed:#1f3a5f;--closed-soft:#dfe7f1;--logged:#9a5414;--logged-soft:#f5e6d6;--open:#1d7366;--open-soft:#d9efeb;
+  --serif:Charter,"Iowan Old Style","Source Serif Pro",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#17191c;--surface:#202328;--ink:#eceae4;--ink-muted:#a7abb2;--rule:#3a3e46;
+  --closed:#8fb0d9;--closed-soft:#1e2a3a;--logged:#e0a060;--logged-soft:#3a2a1c;--open:#5cc4b3;--open-soft:#17302c;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#17191c;--surface:#202328;--ink:#eceae4;--ink-muted:#a7abb2;--rule:#3a3e46;
+  --closed:#8fb0d9;--closed-soft:#1e2a3a;--logged:#e0a060;--logged-soft:#3a2a1c;--open:#5cc4b3;--open-soft:#17302c;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--sans)}
+.wrap{max-width:980px;margin:0 auto;padding-inline:16px;padding-block:0 48px}
+@media (min-width:720px){.wrap{padding-inline:32px}}
+a{color:var(--open)}
+a:focus-visible{outline:2px solid var(--open);outline-offset:2px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2;margin:0;text-wrap:balance}
+h2{font-size:clamp(24px,4vw,30px)}
+p{margin:0}
+.muted{color:var(--ink-muted)}
+.icon{width:16px;height:16px;flex:none}
+section{padding-block:40px;border-top:1px solid var(--rule);display:grid;gap:16px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-block:20px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600}
+.brand svg{width:30px;height:30px}
+.draft{font:600 12px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--logged);background:var(--logged-soft);padding:6px 10px;border-radius:4px}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;padding-block:0 8px}
+nav.toc a{color:var(--ink-muted);text-decoration:none}
+nav.toc a:hover{color:var(--ink);text-decoration:underline}
+.hero{padding-block:32px 40px;display:grid;gap:28px}
+@media (min-width:820px){.hero{grid-template-columns:1.5fr 1fr;align-items:end}}
+.eyebrow{font:600 13px/1.4 var(--mono);letter-spacing:.02em;color:var(--ink-muted)}
+.hero h1{font-size:clamp(34px,6vw,54px);line-height:1.04;letter-spacing:-.01em;margin-block:10px 14px}
+.lede{font-size:18px;line-height:1.55;max-width:36em}
+.mix{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:16px;display:grid;gap:10px;min-width:0}
+.mix h3{font-size:16px}
+.bar{display:flex;height:14px;border-radius:7px;overflow:hidden}
+.bar span{display:block}
+.bar .c{background:var(--closed)}.bar .l{background:var(--logged)}.bar .o{background:var(--open)}
+.legend{display:grid;gap:6px;font-size:14px}
+.legend div{display:flex;justify-content:space-between;gap:12px}
+.legend b{font-variant-numeric:tabular-nums}
+.chip{display:inline-flex;align-items:center;gap:5px;font:600 12px/16px var(--sans);letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:4px;white-space:nowrap}
+.chip.closed{background:var(--closed-soft);color:var(--closed)}
+.chip.logged{background:var(--logged-soft);color:var(--logged)}
+.chip.open{background:var(--open-soft);color:var(--open)}
+.lc{color:var(--closed)}.ll{color:var(--logged)}.lo{color:var(--open)}
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:14px;line-height:1.5}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{background:var(--paper);font-weight:600}
+tbody tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tfoot td{font-weight:600;border-top:2px solid var(--rule);border-bottom:0}
+ol.outcomes{margin:0;padding-left:22px;display:grid;gap:8px;max-width:46em}
+.block-head{display:flex;align-items:baseline;gap:12px;margin-top:12px}
+.block-head .roman{font:600 13px/1 var(--mono);color:var(--ink-muted)}
+.block-head h3{font-size:20px}
+.week{display:grid;grid-template-columns:52px minmax(0,1fr);gap:16px;padding-block:20px;border-top:1px dashed var(--rule)}
+.wk{font:600 30px/1 var(--serif);color:var(--ink-muted);font-variant-numeric:tabular-nums}
+.wk small{display:block;font:600 11px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.week h4{font:600 20px/1.25 var(--serif);margin:0 0 6px;text-wrap:balance}
+.q{font-style:italic;font-family:var(--serif);font-size:17px;color:var(--ink-muted);margin-bottom:10px;max-width:40em}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;padding:0;list-style:none}
+.tags li{font-size:13px;border:1px solid var(--rule);border-radius:4px;padding:2px 8px;background:var(--surface)}
+.acts{display:grid;gap:8px;margin-bottom:10px}
+.act{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;align-items:start;font-size:15px;line-height:1.5}
+@media (max-width:520px){.act{grid-template-columns:minmax(0,1fr);gap:4px}}
+.meta{font-size:13px;color:var(--ink-muted);display:grid;gap:2px}
+.meta b{color:var(--ink);font-weight:600}
+.exam{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:16px;border:1px solid var(--rule);border-radius:8px;background:var(--surface)}
+.cards{display:grid;gap:16px}
+@media (min-width:720px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:18px;display:grid;gap:8px;align-content:start}
+.card h3{font-size:19px}
+.card .when{font:600 12px/1.4 var(--mono);color:var(--ink-muted)}
+.card p{font-size:15px;line-height:1.55}
+ul.plain{margin:0;padding-left:20px;display:grid;gap:6px;max-width:46em}
+.note{font-size:14px;color:var(--ink-muted);max-width:46em}
+footer{border-top:1px solid var(--rule);padding-block:24px;font-size:14px;color:var(--ink-muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+html{scroll-behavior:smooth}
+</style></head><body>
+<div class="wrap">
+<div class="topbar">
+  <div class="brand"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="28" y="10" width="28" height="12" rx="4" fill="var(--open)"/><rect x="18" y="26" width="38" height="12" rx="4" fill="var(--logged)"/><rect x="8" y="42" width="48" height="12" rx="4" fill="var(--closed)"/></svg>Judgment First</div>
+  <span class="draft">Course proposal</span>
+</div>
+<nav class="toc" aria-label="Sections">
+  <a href="#why">Why this course</a><a href="#outcomes">Outcomes</a><a href="#schedule">Schedule</a><a href="#assessment">Assessment</a><a href="#projects">Projects</a><a href="#tools">Tools and AI policy</a>
+</nav>
+
+<header class="hero">
+  <div>
+    <p class="eyebrow">MSc module · 10 weeks + exam · 2-hour lecture and 1-hour lab per week</p>
+    <h1>Text as Data and Machine Learning for Finance and Economics</h1>
+    <p class="lede">A ready-to-teach MSc module, designed for the age of large language models, on machine learning, text as data and LLMs for finance and macroeconomics. Students learn to build these tools, to measure with them, and to catch them when they are wrong.</p>
+  </div>
+  <div class="mix" aria-label="Assessment by lane">
+    <h3>Assessment by lane</h3>
+    <div class="bar" role="img" aria-label="Closed 25%, Logged 15%, Open 60%"><span class="c" style="flex:25"></span><span class="l" style="flex:15"></span><span class="o" style="flex:60"></span></div>
+    <div class="legend">
+      <div><span class="lc">Closed: no AI, in the room</span><b>25%</b></div>
+      <div><span class="ll">Logged: AI with a submitted log</span><b>15%</b></div>
+      <div><span class="lo">Open: AI expected, audited, defended</span><b>60%</b></div>
+    </div>
+  </div>
+</header>
+
+<section id="why">
+  <h2>Why this course</h2>
+  <p style="max-width:46em">Finance and central banking now run on text and machine learning: earnings calls, filings, news and policy statements are read by models before they are read by people. Graduates need to build these tools, measure with them, and know when they fail. Most courses teach either the statistics or the tools. This one teaches both, and grades the judgment that connects them.</p>
+  <div class="cards">
+    <div class="card"><h3>Who it is for</h3><p>MSc students in finance, economics, business analytics or data science. Works as a core module or an elective, and as a PhD methods course with a research project in place of the Brief Defense.</p></div>
+    <div class="card"><h3>Prerequisites</h3><p>Introductory econometrics and some Python. Weeks 1 and 2 bring everyone to the same level on prediction and evaluation.</p></div>
+    <div class="card"><h3>Formats</h3><p>Ten weeks plus an exam as designed. It also condenses into a five-day intensive for executive education or a doctoral school: one block per day and a capstone on day five.</p></div>
+    <div class="card"><h3>Teaching record</h3><p>Built on seven years of teaching big data and text analytics to MSc students at King’s College London (2019–2026), redesigned from the ground up for the AI era. A complete sample week is available on request: slides, lab notebooks, an error-hunt exhibit with answer key, and a run-sheet.</p></div>
+  </div>
+</section>
+
+<section id="outcomes">
+  <h2>Learning outcomes</h2>
+  <p class="muted">By the end of the module, students can:</p>
+  <ol class="outcomes"><li>Derive and explain the core estimators (ridge, lasso, principal components, attention) without notes.</li><li>Build prediction and nowcasting pipelines that are honest about time: no leakage, point-in-time data, proper scoring.</li><li>Turn financial and central bank text into measurements, and validate them against human judgment.</li><li>Use language models as instruments, assistants and agents, and audit their output for errors, cost and bias.</li><li>Detect look-ahead bias and training-data contamination in claims about AI forecasting.</li><li>Defend a modelling decision in front of a risk committee, in the language of model risk and regulation.</li></ol>
+</section>
+
+<section id="schedule">
+  <h2>Weekly schedule</h2>
+  <p class="muted" style="max-width:46em">Each week has a two-hour lecture and a one-hour lab, with one task in each lane. Lectures open with a ten-minute cold derivation.</p>
+  <div class="block-head"><span class="roman">Block I</span><h3>Learning from high-dimensional data</h3></div>
+
+<article class="week" id="week-1">
+  <div class="wk"><small>Week</small>1</div>
+  <div>
+    <h4>Prediction when there are more variables than observations</h4>
+    <p class="q">When you have 120 macro series and 300 months, what can you learn, and what are you fooling yourself about?</p>
+    <ul class="tags" aria-label="Key concepts"><li>Curse of dimensionality</li><li>Bias and variance</li><li>Ridge, lasso, elastic net</li><li>Cross-validation for time series</li><li>Leakage</li></ul>
+    <div class="acts">
+      <div class="act"><span class="chip closed"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>Closed</span><p>Cold derivation: the ridge estimator in closed form, and why the lasso sets coefficients exactly to zero.</p></div>
+      <div class="act"><span class="chip logged"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Logged</span><p>Lab: nowcast industrial production from FRED-MD with the lasso and rolling-origin validation. AI pair-programmer allowed; submit the log.</p></div>
+      <div class="act"><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span><p>AI Duel: an assistant reads the lasso output and claims “these 12 variables drive inflation”. Grade it: prediction is not causation, and selection is unstable.</p></div>
+    </div>
+    <div class="meta"><span><b>Data</b> FRED-MD monthly macro database</span><span><b>Reading</b> Hastie, Tibshirani and Friedman, <i>The Elements of Statistical Learning</i>, ch. 3; Tibshirani (1996), the lasso; McCracken and Ng (2016), FRED-MD</span></div>
+  </div>
+</article>
+
+<article class="week" id="week-2">
+  <div class="wk"><small>Week</small>2</div>
+  <div>
+    <h4>Nonlinear learners: trees, boosting and neural networks</h4>
+    <p class="q">Why does gradient boosting still win on tabular financial data, and when does a neural network earn its cost?</p>
+    <ul class="tags" aria-label="Key concepts"><li>Trees and random forests</li><li>Gradient boosting</li><li>Feed-forward networks and backpropagation</li><li>Regularisation and early stopping</li><li>Statistical versus economic significance</li></ul>
+    <div class="acts">
+      <div class="act"><span class="chip closed"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>Closed</span><p>Cold derivation: one backpropagation step by hand on a two-neuron network.</p></div>
+      <div class="act"><span class="chip logged"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Logged</span><p>Lab: boosting versus a small network on stock-level return predictors, evaluated out of sample by date.</p></div>
+      <div class="act"><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span><p>Leakage Court (Error Hunt 1): a notebook claims 60% accuracy predicting Amazon’s next-day direction. Teams find the planted flaws: a random split on time series, scaling on the full sample, a feature that contains tomorrow.</p></div>
+    </div>
+    <div class="meta"><span><b>Data</b> Daily equity prices and volumes; stock characteristics</span><span><b>Reading</b> <i>Elements of Statistical Learning</i>, ch. 10–11; Gu, Kelly and Xiu (2020), empirical asset pricing via machine learning</span></div>
+  </div>
+</article>
+
+<article class="week" id="week-3">
+  <div class="wk"><small>Week</small>3</div>
+  <div>
+    <h4>Structure without labels: factors, clusters and autoencoders</h4>
+    <p class="q">Can a few hidden factors summarise the whole economy, and how would you know if they cannot?</p>
+    <ul class="tags" aria-label="Key concepts"><li>Principal components</li><li>Approximate factor models and diffusion indexes</li><li>k-means and hierarchical clustering</li><li>Autoencoders</li><li>Dynamic factor models for nowcasting</li></ul>
+    <div class="acts">
+      <div class="act"><span class="chip closed"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>Closed</span><p>Cold derivation: principal components of a 2×2 covariance matrix by hand.</p></div>
+      <div class="act"><span class="chip logged"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Logged</span><p>Lab: a factor-based GDP nowcast with ragged-edge data; compare it with week 1’s lasso.</p></div>
+      <div class="act"><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span><p>Oral Check, sampled on the week 1–3 labs: explain one modelling choice, then say what breaks if it is wrong.</p></div>
+    </div>
+    <div class="meta"><span><b>Data</b> FRED-MD; quarterly GDP vintages</span><span><b>Reading</b> Stock and Watson (2002), diffusion indexes; <i>Elements of Statistical Learning</i>, ch. 14</span></div>
+  </div>
+</article>
+<div class="block-head"><span class="roman">Block II</span><h3>Text as data, from counts to language models</h3></div>
+
+<article class="week" id="week-4">
+  <div class="wk"><small>Week</small>4</div>
+  <div>
+    <h4>Text becomes numbers</h4>
+    <p class="q">What is lost, and what is invented, when a central bank statement becomes a row of counts?</p>
+    <ul class="tags" aria-label="Key concepts"><li>Sourcing corpora: EDGAR, central bank texts, news licensing</li><li>Subword tokenisation (how language models see text)</li><li>Document-term matrices and tf-idf</li><li>Finance dictionaries versus general ones</li></ul>
+    <div class="acts">
+      <div class="act"><span class="chip closed"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>Closed</span><p>Cold derivation: tf-idf weights for a three-document corpus by hand.</p></div>
+      <div class="act"><span class="chip logged"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Logged</span><p>Lab: build a document-term matrix from FOMC statements and track Loughran–McDonald tone since 2000.</p></div>
+      <div class="act"><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span><p>AI Duel: ask an assistant to count words and tokens in a statement. Explain its errors with what you now know about tokenisation. Prediction Ledger opens this week.</p></div>
+    </div>
+    <div class="meta"><span><b>Data</b> FOMC statements; Loughran–McDonald dictionary</span><span><b>Reading</b> Gentzkow, Kelly and Taddy (2019), text as data; Loughran and McDonald (2011), finance dictionaries; Jurafsky and Martin, <i>Speech and Language Processing</i>, ch. 2</span></div>
+  </div>
+</article>
+
+<article class="week" id="week-5">
+  <div class="wk"><small>Week</small>5</div>
+  <div>
+    <h4>Meaning as geometry: embeddings and topics</h4>
+    <p class="q">If similar meanings sit close together in space, what does “close” mean for a risk disclosure?</p>
+    <ul class="tags" aria-label="Key concepts"><li>word2vec</li><li>Contextual and sentence embeddings</li><li>Cosine similarity and semantic search</li><li>From LDA to embedding-based topics</li></ul>
+    <div class="acts">
+      <div class="act"><span class="chip closed"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>Closed</span><p>Cold derivation: cosine similarity by hand, and why vector arithmetic on words sometimes works.</p></div>
+      <div class="act"><span class="chip logged"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Logged</span><p>Lab: semantic search over 10-K risk-factor sections; LDA versus BERTopic on central bank speeches. Tutor Log sessions start.</p></div>
+      <div class="act"><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span><p>Error Hunt (short): an AI-written summary of “the main topics in the speeches”. Check every claim against the topic model you built.</p></div>
+    </div>
+    <div class="meta"><span><b>Data</b> SEC EDGAR 10-K filings; central bank speeches</span><span><b>Reading</b> Mikolov et al. (2013), word2vec; Blei, Ng and Jordan (2003), LDA; Hansen, McMahon and Prat (2018), FOMC deliberation; Grootendorst (2022), BERTopic</span></div>
+  </div>
+</article>
+
+<article class="week" id="week-6">
+  <div class="wk"><small>Week</small>6</div>
+  <div>
+    <h4>Inside a language model</h4>
+    <p class="q">What is a large language model actually computing, and why does that make it confident when it is wrong?</p>
+    <ul class="tags" aria-label="Key concepts"><li>Self-attention and the transformer block</li><li>Pretraining objectives: BERT versus GPT</li><li>Fine-tuning and instruction tuning</li><li>Context windows and knowledge cut-offs</li><li>Why models hallucinate</li></ul>
+    <div class="acts">
+      <div class="act"><span class="chip closed"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>Closed</span><p>Cold derivation: self-attention for three tokens by hand, softmax(QKᵀ/√d)V.</p></div>
+      <div class="act"><span class="chip logged"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Logged</span><p>Lab: fine-tune a small financial-sentiment classifier on Financial PhraseBank; compare it with the week 4 dictionary.</p></div>
+      <div class="act"><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span><p>Replication Sprint begins (pairs, three weeks): replicate a published text-as-data result with an AI pair-programmer, then extend it.</p></div>
+    </div>
+    <div class="meta"><span><b>Data</b> Financial PhraseBank</span><span><b>Reading</b> Vaswani et al. (2017), attention; Devlin et al. (2019), BERT; Jurafsky and Martin, transformer chapters; Araci (2019), FinBERT</span></div>
+  </div>
+</article>
+<div class="block-head"><span class="roman">Block III</span><h3>Language models as research and industry tools</h3></div>
+
+<article class="week" id="week-7">
+  <div class="wk"><small>Week</small>7</div>
+  <div>
+    <h4>Language models as measurement instruments</h4>
+    <p class="q">If a model labels 50,000 sentences as hawkish or dovish, is that a measurement, and how good is it?</p>
+    <ul class="tags" aria-label="Key concepts"><li>Zero- and few-shot classification</li><li>Prompt sensitivity and structured outputs</li><li>Validation against human labels</li><li>Agreement statistics</li><li>Cost, reproducibility and version pinning</li></ul>
+    <div class="acts">
+      <div class="act"><span class="chip closed"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>Closed</span><p>Cold derivation: precision, recall and Cohen’s kappa from a confusion matrix.</p></div>
+      <div class="act"><span class="chip logged"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Logged</span><p>Measurement Bake-off: dictionary, fine-tuned classifier, open-weight model and a frontier model label FOMC sentences. Score each against 200 hand labels and plot accuracy against cost per 1,000 documents.</p></div>
+      <div class="act"><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span><p>Error Hunt 2: a paper builds an “LLM sentiment index” with no human validation and a prompt tuned on its test set. Find the flaws and propose the fix.</p></div>
+    </div>
+    <div class="meta"><span><b>Data</b> FOMC sentences with class hand labels</span><span><b>Reading</b> Gilardi, Alizadeh and Kubli (2023), LLMs for annotation; Ludwig, Mullainathan and Rambachan (2025), LLMs as an applied econometric framework; Korinek (2023), generative AI for economic research</span></div>
+  </div>
+</article>
+
+<article class="week" id="week-8">
+  <div class="wk"><small>Week</small>8</div>
+  <div>
+    <h4>Retrieval, agents and documents</h4>
+    <p class="q">Can an assistant answer questions about a bank’s annual report without inventing numbers?</p>
+    <ul class="tags" aria-label="Key concepts"><li>Retrieval-augmented generation</li><li>Chunking, indexing and reranking</li><li>Faithfulness and citation checks</li><li>Tool use and agents</li><li>Prompt injection hidden in documents</li></ul>
+    <div class="acts">
+      <div class="act"><span class="chip closed"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>Closed</span><p>Oral Check, sampled on the Bake-off: defend your validation design.</p></div>
+      <div class="act"><span class="chip logged"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Logged</span><p>Lab: build a retrieval assistant over annual reports and score it on 30 questions with known answers.</p></div>
+      <div class="act"><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span><p>Agent Audit: an agent computes a leverage ratio from a 10-K. Trace every step, find where it went wrong, and write the test that would have caught it.</p></div>
+    </div>
+    <div class="meta"><span><b>Data</b> Bank annual reports and 10-K filings</span><span><b>Reading</b> Lewis et al. (2020), retrieval-augmented generation</span></div>
+  </div>
+</article>
+
+<article class="week" id="week-9">
+  <div class="wk"><small>Week</small>9</div>
+  <div>
+    <h4>Forecasting with text, and the look-ahead trap</h4>
+    <p class="q">If a model was trained on text from 2024, what does its “forecast” of 2022 really tell you?</p>
+    <ul class="tags" aria-label="Key concepts"><li>Nowcasting with news and central bank text</li><li>Look-ahead bias and training-data contamination</li><li>Memorisation probes</li><li>Point-in-time evaluation</li><li>Density forecasts and scoring rules</li></ul>
+    <div class="acts">
+      <div class="act"><span class="chip closed"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>Closed</span><p>Cold derivation: Brier and log scores by hand for three forecasts.</p></div>
+      <div class="act"><span class="chip logged"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Logged</span><p>Lab: add a text index to the week 3 nowcast; probe a language model for memorised FOMC outcomes before and after its cut-off.</p></div>
+      <div class="act"><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span><p>Prediction Ledger review: where the class beat, and lost to, the consensus and a plain LLM baseline. Replication memo due.</p></div>
+    </div>
+    <div class="meta"><span><b>Data</b> News-based indices; FOMC decisions; model release dates</span><span><b>Reading</b> Kalamara et al. (2022), making text count; Bybee et al. (2024), business news and business cycles; Lopez-Lira and Tang (2023), ChatGPT and stock returns; Glasserman and Lin (2023), look-ahead bias in GPT sentiment</span></div>
+  </div>
+</article>
+
+<article class="week" id="week-10">
+  <div class="wk"><small>Week</small>10</div>
+  <div>
+    <h4>Governance, risk and the economics of AI in finance</h4>
+    <p class="q">Would you sign off on this model if you were the bank’s model risk committee?</p>
+    <ul class="tags" aria-label="Key concepts"><li>Model risk management (SR 11-7, PRA SS1/23)</li><li>The EU AI Act and high-risk uses such as credit scoring</li><li>Explainability and fairness</li><li>Data protection</li><li>Compute costs and labour-market effects</li></ul>
+    <div class="acts">
+      <div class="act"><span class="chip closed"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>Closed</span><p>Exam preparation: practice questions under exam conditions.</p></div>
+      <div class="act"><span class="chip logged"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Logged</span><p>Brief drafting with AI, logged.</p></div>
+      <div class="act"><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span><p>Brief Defense: a memo to a model risk committee on whether to approve an LLM-based credit early-warning system, defended in a 12-minute cross-examination.</p></div>
+    </div>
+    <div class="meta"><span><b>Data</b> Regulatory texts; your Bake-off and Agent Audit results</span><span><b>Reading</b> Federal Reserve SR 11-7 (2011); PRA SS1/23 (2023); Regulation (EU) 2024/1689, the AI Act; Eloundou et al. (2024), labour-market exposure to LLMs</span></div>
+  </div>
+</article>
+  <div class="exam"><span class="chip closed"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>Closed</span><p><b>Exam period:</b> a 90-minute in-person written exam. Derive, interpret printed model output, and find the bugs in printed code.</p></div>
+</section>
+
+<section id="assessment">
+  <h2>Assessment</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Component</th><th>Lane</th><th style="text-align:right">Weight</th></tr></thead>
+    <tbody><tr><td>Cold derivations (best 6 of 8)</td><td><span class="chip closed"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>Closed</span></td><td class='num'>5%</td></tr><tr><td>In-person exam: derivations, reading output, spotting errors in printed code</td><td><span class="chip closed"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>Closed</span></td><td class='num'>20%</td></tr><tr><td>Weekly labs with AI-use log (best 6 of 8)</td><td><span class="chip logged"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Logged</span></td><td class='num'>15%</td></tr><tr><td>Leakage Court and Error Hunt 2</td><td><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span></td><td class='num'>10%</td></tr><tr><td>Measurement Bake-off report</td><td><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span></td><td class='num'>10%</td></tr><tr><td>Prediction Ledger (Brier score against baselines, plus a calibration memo)</td><td><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span></td><td class='num'>10%</td></tr><tr><td>Replication and extension, with an oral check</td><td><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span></td><td class='num'>15%</td></tr><tr><td>Brief Defense</td><td><span class="chip open"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.75-1.4"/><path d="M12 15v2"/></svg>Open</span></td><td class='num'>15%</td></tr></tbody>
+    <tfoot><tr><td>Total</td><td class="muted">Closed 25 · Logged 15 · Open 60</td><td class="num">100%</td></tr></tfoot>
+  </table></div>
+  <p class="note">Oral checks: after each project, a random 25% of students have a ten-minute viva on their own submission. The result moves the project grade up or down. Undisclosed AI use in a Logged or Open task is an integrity breach; disclosed use is never penalised. AI detectors are not used.</p>
+</section>
+
+<section id="projects">
+  <h2>Signature projects</h2>
+  <div class="cards">
+    <div class="card"><span class="when">Week 2 · teams of 3</span><h3>Leakage Court</h3><p>A notebook claims 60% accuracy predicting Amazon’s next-day direction. Teams act as the prosecution and find the planted flaws. Points for each flaw proven, penalties for false accusations.</p></div>
+    <div class="card"><span class="when">Week 7 · individual</span><h3>Measurement Bake-off</h3><p>Four ways to measure monetary policy tone, from a dictionary to a frontier model, scored against the class’s own hand labels. The output is an accuracy-against-cost frontier and a recommendation a research team could act on.</p></div>
+    <div class="card"><span class="when">Weeks 4–10 · individual</span><h3>Prediction Ledger</h3><p>Every week students forecast real events with probabilities: central bank decisions, CPI prints, and the tone of the next FOMC statement. Brier scores are compared with the consensus and a plain language-model baseline.</p></div>
+    <div class="card"><span class="when">Weeks 6–9 · pairs</span><h3>Replication and Extension</h3><p>Replicate a published text-as-data result with an AI pair-programmer, then extend it with a modern method. Graded on the verification memo, followed by an oral check.</p></div>
+    <div class="card"><span class="when">Week 8 · teams of 3</span><h3>Agent Audit</h3><p>An agent computes a leverage ratio from a 10-K filing. Students trace its retrieval and arithmetic, find where it fails, and write the test that would have caught the error.</p></div>
+    <div class="card"><span class="when">Week 10 · individual</span><h3>Brief Defense</h3><p>A two-page memo to a bank’s model risk committee on whether to approve an LLM-based early-warning system, defended under cross-examination with SR 11-7, PRA SS1/23 and the EU AI Act in hand.</p></div>
+  </div>
+</section>
+
+<section id="tools">
+  <h2>Tools and AI policy</h2>
+  <ul class="plain">
+    <li><b>Stack:</b> Python, pandas, scikit-learn, PyTorch, Hugging Face transformers and sentence-transformers. Versions are pinned in one course environment, so every result can be reproduced.</li>
+    <li><b>Models:</b> a small open-weight language model on university compute, so students can inspect it and fix its version; and a university-licensed frontier assistant for every student. Nobody pays for a subscription to do well.</li>
+    <li><b>Compute:</b> each student gets a fixed API and GPU budget. Spending it well is part of the Bake-off.</li>
+    <li><b>Data protection:</b> course data is public or licensed. Student work goes only into tools covered by the university’s data agreements.</li>
+    <li><b>Lanes:</b> every task on this page carries its lane. If a task is not labelled, ask before using AI.</li>
+  </ul>
+</section>
+
+<footer>
+  <span>Eleni Kalamara · course proposal</span>
+  <a href="https://elenikal.github.io/teaching.html">The teaching approach behind this course</a>
+</footer>
+</div>
+</body></html>
